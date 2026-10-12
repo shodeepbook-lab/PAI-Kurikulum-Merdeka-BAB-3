@@ -1,0 +1,845 @@
+<!DOCTYPE html>
+<html lang="id" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Materi PAI Kelas XI - Bab 3</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        'islamic': ['Amiri', 'serif'],
+                        'sans': ['Poppins', 'sans-serif'],
+                    },
+                    colors: {
+                        'emerald-dark': '#064e3b',
+                        'emerald-light': '#047857',
+                        'gold-primary': '#fbbf24',
+                        'gold-light': '#fcd34d',
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        /* Custom CSS for Islamic Geometric Pattern Background and Animations */
+        body {
+            background-color: #064e3b;
+            background-image: 
+                radial-gradient(circle at 100% 150%, #064e3b 24%, #fbbf24 24%, #fbbf24 28%, #064e3b 28%, #064e3b 36%, #fbbf24 36%, #fbbf24 40%, transparent 40%, transparent),
+                radial-gradient(circle at 0    150%, #064e3b 24%, #fbbf24 24%, #fbbf24 28%, #064e3b 28%, #064e3b 36%, #fbbf24 36%, #fbbf24 40%, transparent 40%, transparent),
+                radial-gradient(circle at 50%  100%, #fbbf24 10%, #064e3b 10%, #064e3b 23%, #fbbf24 23%, #fbbf24 30%, #064e3b 30%, #064e3b 43%, #fbbf24 43%, #fbbf24 50%, #064e3b 50%, #064e3b 63%, #fbbf24 63%, #fbbf24 71%, transparent 71%, transparent),
+                radial-gradient(circle at 100% 50%, #fbbf24 5%, #064e3b 5%, #064e3b 15%, #fbbf24 15%, #fbbf24 20%, #064e3b 20%, #064e3b 29%, #fbbf24 29%, #fbbf24 34%, #064e3b 34%, #064e3b 44%, #fbbf24 44%, #fbbf24 49%, transparent 49%, transparent),
+                radial-gradient(circle at 0    50%, #fbbf24 5%, #064e3b 5%, #064e3b 15%, #fbbf24 15%, #fbbf24 20%, #064e3b 20%, #064e3b 29%, #fbbf24 29%, #fbbf24 34%, #064e3b 34%, #064e3b 44%, #fbbf24 44%, #fbbf24 49%, transparent 49%, transparent);
+            background-size: 100px 50px;
+            background-blend-mode: overlay;
+            color: #ffffff;
+            min-height: 100vh;
+        }
+
+        .glass-panel {
+            background: rgba(6, 78, 59, 0.7);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(251, 191, 36, 0.3);
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+        }
+
+        .animate-fade-in {
+            animation: fadeIn 0.5s ease-out forwards;
+        }
+
+        .animate-slide-up {
+            animation: slideUp 0.6s ease-out forwards;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes slideUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .tab-btn {
+            transition: all 0.3s ease;
+        }
+        .tab-btn.active {
+            background-color: #fbbf24;
+            color: #064e3b;
+            transform: scale(1.05);
+            box-shadow: 0 0 15px rgba(251, 191, 36, 0.5);
+        }
+
+        .flip-card {
+            perspective: 1000px;
+            height: 250px;
+        }
+        .flip-card-inner {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            text-align: center;
+            transition: transform 0.6s;
+            transform-style: preserve-3d;
+            cursor: pointer;
+        }
+        .flip-card.flipped .flip-card-inner {
+            transform: rotateY(180deg);
+        }
+        .flip-card-front, .flip-card-back {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            -webkit-backface-visibility: hidden;
+            backface-visibility: hidden;
+            border-radius: 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 1.5rem;
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.3);
+        }
+        .flip-card-front {
+            background: linear-gradient(135deg, rgba(6, 78, 59, 0.9), rgba(4, 120, 87, 0.8));
+            border: 2px solid rgba(251, 191, 36, 0.4);
+        }
+        .flip-card-back {
+            background: linear-gradient(135deg, rgba(251, 191, 36, 0.9), rgba(245, 158, 11, 0.9));
+            color: #064e3b;
+            transform: rotateY(180deg);
+            border: 2px solid #064e3b;
+        }
+        .habit-checkbox:checked + div {
+            background-color: #047857;
+            border-color: #fbbf24;
+        }
+        .habit-checkbox:checked + div .check-icon {
+            opacity: 1;
+            transform: scale(1);
+        }
+
+        /* Hide scrollbar for clean UI */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #064e3b; 
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #fbbf24; 
+            border-radius: 4px;
+        }
+    </style>
+</head>
+<body class="font-sans antialiased pb-20">
+
+    <header class="relative pt-16 pb-12 text-center animate-slide-up px-4">
+        <div class="inline-block p-4 rounded-full bg-gold-primary/20 text-gold-primary mb-4 animate-pulse">
+            <i class="fas fa-book-quran text-4xl"></i>
+        </div>
+        <h1 class="text-4xl md:text-5xl font-islamic font-bold text-gold-primary mb-2 tracking-wide text-shadow-md">
+            Pendidikan Agama Islam
+        </h1>
+        <h2 class="text-xl md:text-2xl font-light text-gray-200 mb-6">Kelas XI • Bab 3</h2>
+        <p class="max-w-2xl mx-auto text-gray-300 mb-8 leading-relaxed glass-panel p-4 rounded-xl">
+            "Menghindari Perkelahian Pelajar, Minuman Keras, dan Narkoba."<br>
+            Mari pelajari pandangan Islam untuk menjaga diri dan akal demi masa depan yang cerah.
+        </p>
+
+        <div class="max-w-2xl mx-auto mb-8 bg-emerald-dark/60 border border-gold-primary/40 p-5 rounded-2xl shadow-lg backdrop-blur-sm transform transition hover:scale-[1.02] duration-300">
+            <h3 class="text-gold-light font-bold mb-3"><i class="fas fa-quote-right mr-2 opacity-70"></i>Nasihat Penjaga Diri</h3>
+            <p id="quote-text" class="text-gray-100 italic mb-5 min-h-[48px] flex items-center justify-center transition-all text-sm sm:text-base font-medium px-4">
+                "Klik tombol di bawah untuk mendapatkan nasihat pelindung dirimu hari ini."
+            </p>
+            <button onclick="generateQuote()" class="text-xs sm:text-sm px-5 py-2.5 bg-gold-primary/10 text-gold-primary border border-gold-primary rounded-full hover:bg-gold-primary hover:text-emerald-dark transition-all duration-300 font-semibold shadow-[0_0_10px_rgba(251,191,36,0.2)] hover:shadow-[0_0_15px_rgba(251,191,36,0.6)]">
+                <i class="fas fa-sync-alt mr-2"></i> Ganti Nasihat
+            </button>
+        </div>
+
+        <a href="#materi-section" class="inline-flex items-center px-6 py-3 bg-gold-primary text-emerald-dark font-bold rounded-full hover:bg-gold-light transition-all transform hover:scale-105 hover:shadow-[0_0_20px_rgba(251,191,36,0.6)]">
+            Mulai Belajar <i class="fas fa-arrow-down ml-2"></i>
+        </a>
+    </header>
+
+    <main id="materi-section" class="max-w-5xl mx-auto px-4 py-8">
+        <div class="flex flex-col sm:flex-row flex-wrap justify-center gap-3 sm:gap-4 mb-10 z-20 relative">
+            <button onclick="changeTab('perkelahian')" id="btn-perkelahian" class="tab-btn active px-4 sm:px-6 py-3 rounded-xl border-2 border-gold-primary text-gold-primary font-semibold hover:bg-gold-primary/20 flex items-center justify-center gap-2 text-sm sm:text-base w-full sm:w-auto shadow-sm">
+                <i class="fas fa-users-slash"></i> Perkelahian
+            </button>
+            <button onclick="changeTab('khamr')" id="btn-khamr" class="tab-btn px-4 sm:px-6 py-3 rounded-xl border-2 border-gold-primary text-gold-primary font-semibold hover:bg-gold-primary/20 flex items-center justify-center gap-2 text-sm sm:text-base w-full sm:w-auto shadow-sm">
+                <i class="fas fa-wine-glass-empty"></i> Khamr
+            </button>
+            <button onclick="changeTab('narkoba')" id="btn-narkoba" class="tab-btn px-4 sm:px-6 py-3 rounded-xl border-2 border-gold-primary text-gold-primary font-semibold hover:bg-gold-primary/20 flex items-center justify-center gap-2 text-sm sm:text-base w-full sm:w-auto shadow-sm">
+                <i class="fas fa-pills"></i> Narkoba
+            </button>
+            <button onclick="changeTab('kasus')" id="btn-kasus" class="tab-btn px-4 sm:px-6 py-3 rounded-xl border-2 border-gold-primary text-gold-primary font-semibold hover:bg-gold-primary/20 flex items-center justify-center gap-2 text-sm sm:text-base w-full sm:w-auto shadow-sm bg-gradient-to-r hover:from-gold-primary/20 hover:to-transparent relative overflow-hidden group">
+                <span class="absolute top-0 right-0 w-2 h-2 bg-red-500 rounded-full animate-ping"></span>
+                <i class="fas fa-gamepad group-hover:animate-bounce"></i> Studi Kasus
+            </button>
+            <button onclick="changeTab('flashcard')" id="btn-flashcard" class="tab-btn px-4 sm:px-6 py-3 rounded-xl border-2 border-cyan-400 text-cyan-400 font-semibold hover:bg-cyan-400/20 flex items-center justify-center gap-2 text-sm sm:text-base w-full sm:w-auto shadow-sm transition-all duration-300">
+                <i class="fas fa-layer-group"></i> Flashcards
+            </button>
+            <button onclick="changeTab('mutabaah')" id="btn-mutabaah" class="tab-btn px-4 sm:px-6 py-3 rounded-xl border-2 border-emerald-400 text-emerald-400 font-semibold hover:bg-emerald-400/20 flex items-center justify-center gap-2 text-sm sm:text-base w-full sm:w-auto shadow-sm transition-all duration-300">
+                <i class="fas fa-list-check"></i> Jurnal Harian
+            </button>
+        </div>
+
+        <div id="content-container" class="glass-panel rounded-2xl p-6 md:p-10 min-h-[400px] relative overflow-hidden z-10">
+            <!-- Content will be injected here via JavaScript -->
+        </div>
+
+        <div class="mt-16 glass-panel rounded-2xl p-6 md:p-10 text-center animate-slide-up relative overflow-hidden group shadow-lg border border-gold-primary/30">
+            <!-- Overlay latar belakang tidak akan lagi menghalangi interaksi klik -->
+            <div class="absolute inset-0 bg-gold-primary opacity-0 group-hover:opacity-5 transition-opacity duration-500 pointer-events-none z-0"></div>
+            
+            <div class="relative z-20">
+                <h3 class="text-2xl sm:text-3xl font-islamic text-gold-primary mb-4"><i class="fas fa-brain mr-2"></i> Uji Pemahamanmu</h3>
+                <p class="text-gray-300 mb-6 text-sm sm:text-base">Sudah paham dengan materinya? Yuk, tes pengetahuanmu melalui kuis interaktif singkat ini!</p>
+                
+                <div id="quiz-container" class="max-w-2xl mx-auto text-left hidden">
+                    <div class="mb-4 text-gold-primary font-bold bg-gold-primary/10 inline-block px-4 py-1 rounded-full text-sm">Pertanyaan <span id="q-current">1</span>/<span id="q-total">3</span></div>
+                    <h4 id="question-text" class="text-lg sm:text-xl mb-6 font-semibold text-gray-100"></h4>
+                    <div id="options-container" class="space-y-3">
+                        <!-- Options injected here -->
+                    </div>
+                </div>
+
+                <div id="quiz-result" class="hidden max-w-xl mx-auto text-center py-6">
+                    <i class="fas fa-award text-5xl sm:text-6xl text-gold-primary mb-4 animate-bounce"></i>
+                    <h4 class="text-xl sm:text-2xl font-bold mb-2">Skor Kamu: <span id="score-text" class="text-gold-primary"></span></h4>
+                    <p id="feedback-text" class="mb-6 text-gray-200"></p>
+                    <button onclick="startQuiz()" class="px-6 py-2 bg-emerald-light rounded-full hover:bg-emerald-dark border border-gold-primary transition-colors text-sm sm:text-base shadow-md">Coba Lagi</button>
+                </div>
+
+                <button id="start-quiz-btn" onclick="startQuiz()" class="px-6 sm:px-8 py-3 bg-gradient-to-r from-gold-primary to-gold-light text-emerald-dark font-bold rounded-full hover:shadow-[0_0_20px_rgba(251,191,36,0.6)] transition-all transform hover:-translate-y-1 relative z-30 cursor-pointer text-sm sm:text-base w-full sm:w-auto">
+                    Mulai Kuis Sekarang
+                </button>
+            </div>
+        </div>
+    </main>
+
+    <div class="fixed bottom-6 right-6 z-50">
+        <audio id="murottal-audio" loop>
+            <source src="https://everyayah.com/data/Alafasy_128kbps/005090.mp3" type="audio/mpeg">
+        </audio>
+        
+        <div class="flex flex-col items-center gap-3">
+            <!-- Floating Audio Button -->
+            <button onclick="toggleAudio()" id="audio-btn" class="w-12 h-12 bg-cyan-600/80 backdrop-blur text-white rounded-full shadow-lg flex items-center justify-center text-xl hover:bg-cyan-500 hover:scale-110 transition-all border border-cyan-300">
+                <i class="fas fa-music"></i>
+            </button>
+
+            <!-- Existing Dzikir Panel -->
+            <div id="dzikir-panel" class="hidden glass-panel rounded-2xl p-4 mb-4 text-center transform transition-all origin-bottom-right absolute bottom-16 right-0 w-32">
+                <h4 class="font-islamic text-gold-primary border-b border-gold-primary/30 pb-2 mb-2">Subhanallah</h4>
+                <div class="text-4xl font-bold text-white my-4" id="dzikir-count">0</div>
+                <button onclick="resetDzikir()" class="text-xs text-gray-300 hover:text-gold-primary transition-colors"><i class="fas fa-rotate-right"></i> Reset</button>
+            </div>
+            <button onclick="toggleDzikir()" class="w-14 h-14 bg-gold-primary text-emerald-dark rounded-full shadow-lg flex items-center justify-center text-2xl hover:bg-gold-light hover:scale-110 transition-all focus:outline-none focus:ring-4 focus:ring-gold-primary/50 relative">
+                <i class="fas fa-tasbih"></i>
+                <span class="absolute -top-2 -right-2 bg-red-500 text-white text-[10px] font-bold px-2 py-1 rounded-full animate-bounce">Dzikir</span>
+            </button>
+        </div>
+    </div>
+
+    <footer class="text-center pb-8 pt-12 text-sm text-gold-primary/60">
+        <p>Dibuat untuk Pembelajaran PAI Kelas XI Kurikulum Merdeka</p>
+        <p class="mt-1">&copy; 2026 Nuansa Islami Interaktif</p>
+    </footer>
+
+    <script>
+        // Data Nasihat Penjaga Diri
+        const quotes = [
+            "Jauhilah teman yang buruk, karena ia akan menarikmu ke jurang keburukan. Bertemanlah dengan orang saleh yang akan menuntunmu ke surga.",
+            "Akal adalah titipan Allah yang paling berharga. Menjaganya dari khamr adalah bentuk syukur tertinggi.",
+            "Jangan jadikan obat-obatan terlarang sebagai pelarian, karena sejatinya engkau hanya lari dari satu masalah ke masalah yang jauh lebih besar.",
+            "Seorang pahlawan sejati bukanlah dia yang selalu menang dalam perkelahian, melainkan dia yang mampu menahan amarahnya.",
+            "Khamr adalah induk segala kejahatan (Ummul Khabaits). Jauhilah agar hidupmu senantiasa diberkahi dan dirahmati.",
+            "Luka fisik akibat tawuran mungkin bisa sembuh, tapi masa depan yang hancur karena ego sesaat tak akan mudah kembali.",
+            "Kesenangan dari narkoba hanyalah tipuan ilusi sesaat, namun penderitaannya akan membelenggumu sepanjang hayat.",
+            "Pergaulan yang baik akan membentuk karakter yang baik. Selektiflah dan cerdaslah dalam memilih lingkaran persahabatanmu.",
+            "Ketika diajak berbuat maksiat, ingatlah bahwa pengawasan Allah SWT (Muraqabah) tidak pernah luput darimu sedetik pun.",
+            "Jangan pernah korbankan masa depan cerahmu hanya demi mendapatkan validasi palsu dari teman-teman yang salah jalan.",
+            "Masa muda adalah waktu keemasan. Isilah dengan karya, prestasi, dan ketaatan, bukan dengan mabuk dan kelalaian.",
+            "Menolak ajakan buruk dengan tegas bukanlah tanda kelemahan, melainkan bukti nyata ketangguhan iman dan prinsip pendirianmu.",
+            "Ketenangan jiwa sejati tidak akan pernah ditemukan di dasar botol khamr, melainkan dalam sujud panjang dan untaian doamu.",
+            "Orang yang berakal (Ulul Albab) tidak akan menukar kebahagiaan akhirat yang abadi dengan kesenangan haram yang fana.",
+            "Menjaga kehormatan dan akal di masa muda adalah investasi amal terbaik untuk masa depan yang bahagia dan diridhai-Nya."
+        ];
+
+        function generateQuote() {
+            const quoteText = document.getElementById('quote-text');
+            
+            // Animasi memudar menghilang (fade out)
+            quoteText.style.opacity = 0;
+            
+            // Menunggu sebentar lalu mengganti teks dan memunculkannya kembali
+            setTimeout(() => {
+                const randomIndex = Math.floor(Math.random() * quotes.length);
+                quoteText.innerText = '"' + quotes[randomIndex] + '"';
+                
+                // Animasi memudar muncul (fade in)
+                quoteText.style.opacity = 1;
+            }, 300);
+        }
+
+        const contentData = {
+            perkelahian: `
+                <div class="animate-fade-in">
+                    <h2 class="text-2xl sm:text-3xl font-islamic text-gold-primary mb-6 border-b-2 border-gold-primary pb-2 inline-block"><i class="fas fa-users-slash text-xl sm:text-2xl mr-2"></i> Perkelahian Pelajar</h2>
+                    
+                    <p class="text-gray-100 leading-relaxed mb-6 text-base sm:text-lg">
+                        Perkelahian antar pelajar atau tawuran adalah bentuk kenakalan remaja yang menyimpang. Islam sangat melarang tindakan ini karena mendatangkan keonaran, merusak kedamaian, dan merugikan banyak pihak.
+                    </p>
+
+                    <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mt-8">
+                        <div class="bg-emerald-dark/70 p-5 sm:p-6 rounded-xl border border-emerald-light hover:border-gold-primary hover:-translate-y-1 hover:shadow-lg hover:shadow-gold-primary/10 transition-all duration-300">
+                            <h3 class="text-lg sm:text-xl font-bold text-gold-light mb-3 flex items-center"><i class="fas fa-shield-halved mr-2 text-gold-primary"></i> Upaya Pencegahan</h3>
+                            <ul class="space-y-3 text-gray-200 text-sm sm:text-base">
+                                <li class="flex items-start"><i class="fas fa-check text-green-400 mr-2 mt-1 w-5 text-center"></i> <span>Memberikan ruang pengembangan minat & bakat.</span></li>
+                                <li class="flex items-start"><i class="fas fa-check text-green-400 mr-2 mt-1 w-5 text-center"></i> <span>Mewujudkan lingkungan keluarga yang harmonis.</span></li>
+                                <li class="flex items-start"><i class="fas fa-check text-green-400 mr-2 mt-1 w-5 text-center"></i> <span>Tidak membanding-bandingkan potensi anak.</span></li>
+                            </ul>
+                        </div>
+                        
+                        <div class="bg-emerald-dark/70 p-5 sm:p-6 rounded-xl border border-emerald-light hover:border-gold-primary hover:-translate-y-1 hover:shadow-lg hover:shadow-gold-primary/10 transition-all duration-300">
+                            <h3 class="text-lg sm:text-xl font-bold text-gold-light mb-3 flex items-center"><i class="fas fa-hand-holding-heart mr-2 text-gold-primary"></i> Penanganan (Psikologis)</h3>
+                            <ul class="space-y-3 text-gray-200 text-sm sm:text-base">
+                                <li><span class="font-bold text-gold-primary">Kepercayaan:</span> Membangun rasa aman.</li>
+                                <li><span class="font-bold text-gold-primary">Kemurnian Hati:</span> Membantu dengan tulus.</li>
+                                <li><span class="font-bold text-gold-primary">Empati:</span> Menurunkan ego & memahami mereka.</li>
+                                <li><span class="font-bold text-gold-primary">Kejujuran:</span> Bersikap terbuka dan objektif.</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            `,
+            khamr: `
+                <div class="animate-fade-in">
+                    <h2 class="text-2xl sm:text-3xl font-islamic text-gold-primary mb-6 border-b-2 border-gold-primary pb-2 inline-block"><i class="fas fa-wine-glass-empty text-xl sm:text-2xl mr-2"></i> Minuman Keras (Khamr)</h2>
+                    
+                    <p class="text-gray-100 leading-relaxed mb-6 text-base sm:text-lg">
+                        Khamr mencakup segala jenis minuman atau zat yang memabukkan dan merusak akal sehat manusia.
+                    </p>
+
+                    <div class="bg-gradient-to-r from-red-900/60 to-red-800/30 border border-red-500 rounded-xl p-5 mb-8 flex flex-col sm:flex-row items-center sm:items-start gap-4 transform hover:scale-[1.01] transition-transform duration-300 shadow-md">
+                        <div class="bg-red-500/20 p-3 rounded-full shrink-0">
+                            <i class="fas fa-triangle-exclamation text-3xl sm:text-4xl text-red-400"></i>
+                        </div>
+                        <div class="text-center sm:text-left">
+                            <h3 class="text-xl font-bold text-white mb-2 tracking-wide">Hukumnya Haram Mutlak!</h3>
+                            <p class="text-gray-200 text-sm sm:text-base leading-relaxed">
+                                Ditegaskan dalam <strong>Q.S. Al-Maidah: 90-91</strong>. Minuman keras, judi, dan mengundi nasib adalah perbuatan keji yang berasal dari setan.
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="bg-emerald-dark/70 p-5 sm:p-6 rounded-xl border-l-4 border-l-gold-primary border border-emerald-light/50 hover:bg-emerald-dark/90 transition-colors duration-300 shadow-sm">
+                        <h3 class="text-lg sm:text-xl font-bold text-gold-light mb-3 flex items-center"><i class="fas fa-lightbulb mr-2 text-gold-primary"></i> Solusi dalam Islam</h3>
+                        <p class="text-gray-200 leading-relaxed text-sm sm:text-base">
+                            Islam menggunakan pendekatan berbasis <strong>Akidah (Keimanan)</strong>. 
+                            Menyentuh hati nurani secara bertahap untuk menyadarkan bahwa merusak diri adalah bentuk ketidaksyukuran kepada Allah SWT.
+                        </p>
+                    </div>
+                </div>
+            `,
+            narkoba: `
+                <div class="animate-fade-in">
+                    <h2 class="text-2xl sm:text-3xl font-islamic text-gold-primary mb-6 border-b-2 border-gold-primary pb-2 inline-block"><i class="fas fa-pills text-xl sm:text-2xl mr-2"></i> Narkoba</h2>
+                    
+                    <p class="text-gray-100 leading-relaxed mb-6 text-base sm:text-lg">
+                        Istilah narkoba tidak disebutkan secara harfiah dalam Al-Qur'an, namun ulama menetapkan hukumnya menggunakan metode <strong>Qiyas (Analogi)</strong>.
+                    </p>
+
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-5 sm:gap-6 mb-8">
+                        <div class="bg-emerald-dark/70 p-5 sm:p-6 rounded-xl border border-emerald-light hover:border-red-400 group transition-all duration-300 shadow-sm">
+                            <h3 class="text-lg font-bold text-gold-light mb-2 flex items-center"><i class="fas fa-gavel mr-2 group-hover:text-red-400 transition-colors"></i> Hukum</h3>
+                            <p class="text-gray-200 text-sm sm:text-base">
+                                Karena bersifat memabukkan (sama seperti Khamr), maka hukumnya <span class="text-red-400 font-bold uppercase tracking-wider bg-red-900/30 px-2 py-1 rounded">Haram</span>.
+                            </p>
+                        </div>
+                        
+                        <div class="bg-emerald-dark/70 p-5 sm:p-6 rounded-xl border border-emerald-light hover:border-gold-primary group transition-all duration-300 shadow-sm">
+                            <h3 class="text-lg font-bold text-gold-light mb-2 flex items-center"><i class="fas fa-ban mr-2 group-hover:text-gold-primary transition-colors"></i> Jenis Dilarang</h3>
+                            <p class="text-gray-200 text-sm">
+                                Amphetamine, Shabu, Obat Penenang (Nipam), Halusinogen (LSD, Mushroom), serta Inhalansia.
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="bg-gold-primary/10 p-5 sm:p-6 rounded-xl border border-gold-primary/50 relative overflow-hidden shadow-inner">
+                        <!-- Ornamen Hiasan Belakang -->
+                        <div class="absolute -right-4 -bottom-4 opacity-10"><i class="fas fa-shield-halved text-8xl text-gold-primary"></i></div>
+                        
+                        <h3 class="text-lg sm:text-xl font-bold text-gold-primary mb-4 flex items-center relative z-10"><i class="fas fa-person-walking-arrow-right mr-2"></i> Langkah Menjauhi</h3>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-3 text-sm sm:text-base text-gray-200 relative z-10">
+                            <div class="flex items-start"><i class="fas fa-star text-gold-light mr-2 mt-1 text-xs"></i> Mensyukuri anugerah hidup.</div>
+                            <div class="flex items-start"><i class="fas fa-star text-gold-light mr-2 mt-1 text-xs"></i> Sibukkan diri dengan hobi positif.</div>
+                            <div class="flex items-start"><i class="fas fa-star text-gold-light mr-2 mt-1 text-xs"></i> Tegas mengatakan "TIDAK".</div>
+                            <div class="flex items-start"><i class="fas fa-star text-gold-light mr-2 mt-1 text-xs"></i> Jauhi rokok & minuman keras.</div>
+                            <div class="flex items-start md:col-span-2 bg-emerald-dark/60 p-3 rounded-lg mt-2 border border-emerald-light/40"><i class="fas fa-heart-crack text-red-400 mr-2 mt-1"></i> Jangan jadikan narkoba pelarian, curhatlah pada orang terpercaya jika ada masalah.</div>
+                        </div>
+                    </div>
+                </div>
+            `,
+            kasus: `
+            <div class="animate-fade-in text-center">
+                <h2 class="text-2xl sm:text-3xl font-islamic text-gold-primary mb-2 border-b-2 border-gold-primary pb-2 inline-block"><i class="fas fa-balance-scale text-xl sm:text-2xl mr-2"></i> Simulasi Keputusan</h2>
+                <p class="text-gray-300 mb-8 text-sm sm:text-base">Mari berlatih. Bayangkan kamu benar-benar berada di situasi ini:</p>
+                
+                <div id="kasus-container" class="bg-emerald-dark/60 p-6 sm:p-8 rounded-2xl border border-gold-light/40 shadow-[0_0_15px_rgba(4,120,87,0.5)] transition-all duration-500">
+                    <div class="bg-gold-primary/10 p-5 rounded-xl inline-block mb-6 border border-gold-primary/20">
+                        <i class="fas fa-user-friends text-4xl text-gold-primary mb-3"></i>
+                        <h3 class="text-lg sm:text-xl font-bold text-white leading-relaxed">
+                            "Teman satu gengmu memaksamu mencoba minuman di sebuah pesta perayaan. Jika kamu tidak ikut, kamu diancam akan dicap 'cupu' dan dikucilkan dari pergaulan."
+                        </h3>
+                    </div>
+                    
+                    <p class="text-gold-light font-semibold mb-5 bg-emerald-dark inline-block px-4 py-1 rounded-full border border-emerald-light">Apa yang akan kamu lakukan?</p>
+                    
+                    <div class="flex flex-col space-y-4 max-w-lg mx-auto">
+                        <button onclick="pilihKasus(1)" class="p-3 sm:p-4 text-left border border-emerald-light bg-emerald-dark/40 rounded-xl hover:bg-gold-primary/20 hover:border-gold-primary transition-all text-gray-200 transform hover:-translate-y-1 shadow-sm group">
+                            <span class="font-bold text-gold-primary mr-2 bg-emerald-dark px-2 py-1 rounded group-hover:bg-gold-primary group-hover:text-emerald-dark transition-colors">A</span> Ikut minum sedikit saja agar tetap dihargai dan aman di kelompok.
+                        </button>
+                        <button onclick="pilihKasus(2)" class="p-3 sm:p-4 text-left border border-emerald-light bg-emerald-dark/40 rounded-xl hover:bg-gold-primary/20 hover:border-gold-primary transition-all text-gray-200 transform hover:-translate-y-1 shadow-sm group">
+                            <span class="font-bold text-gold-primary mr-2 bg-emerald-dark px-2 py-1 rounded group-hover:bg-gold-primary group-hover:text-emerald-dark transition-colors">B</span> Langsung marah besar dan memukul mereka karena menawarkan barang haram.
+                        </button>
+                        <button onclick="pilihKasus(3)" class="p-3 sm:p-4 text-left border border-emerald-light bg-emerald-dark/40 rounded-xl hover:bg-gold-primary/20 hover:border-gold-primary transition-all text-gray-200 transform hover:-translate-y-1 shadow-sm group">
+                            <span class="font-bold text-gold-primary mr-2 bg-emerald-dark px-2 py-1 rounded group-hover:bg-gold-primary group-hover:text-emerald-dark transition-colors">C</span> Menolak dengan tegas namun sopan, lalu segera meninggalkan tempat tersebut.
+                        </button>
+                    </div>
+                </div>
+            </div>
+        `,
+        flashcard: `
+            <div class="animate-fade-in text-center">
+                <h2 class="text-2xl sm:text-3xl font-islamic text-cyan-400 mb-2 border-b-2 border-cyan-400 pb-2 inline-block"><i class="fas fa-layer-group text-xl sm:text-2xl mr-2"></i> Kartu Hafalan Pintar</h2>
+                <p class="text-gray-300 mb-6 text-sm sm:text-base">Klik kartu untuk membalik dan melihat definisi/jawaban. Geser untuk kartu selanjutnya.</p>
+                
+                <div class="max-w-md mx-auto mb-6">
+                    <div class="flip-card" onclick="this.classList.toggle('flipped')">
+                        <div class="flip-card-inner">
+                            <div class="flip-card-front">
+                                <h3 id="fc-front" class="text-2xl font-bold text-gold-light px-4">Qiyas</h3>
+                            </div>
+                            <div class="flip-card-back">
+                                <p id="fc-back" class="text-lg font-semibold px-6 text-emerald-dark leading-relaxed">
+                                    Metode menetapkan hukum suatu perkara (seperti Narkoba) dengan menyamakannya dengan perkara lain yang sudah ada dalilnya (Khamr).
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="flex justify-center items-center gap-6">
+                    <button onclick="prevFlashcard()" class="w-12 h-12 rounded-full bg-emerald-dark border border-cyan-400 text-cyan-400 hover:bg-cyan-400 hover:text-emerald-dark transition-colors flex justify-center items-center text-xl shadow-lg">
+                        <i class="fas fa-arrow-left"></i>
+                    </button>
+                    <span id="fc-counter" class="text-gray-300 font-medium">1 / 5</span>
+                    <button onclick="nextFlashcard()" class="w-12 h-12 rounded-full bg-emerald-dark border border-cyan-400 text-cyan-400 hover:bg-cyan-400 hover:text-emerald-dark transition-colors flex justify-center items-center text-xl shadow-lg">
+                        <i class="fas fa-arrow-right"></i>
+                    </button>
+                </div>
+            </div>
+        `,
+        mutabaah: `
+            <div class="animate-fade-in">
+                <h2 class="text-2xl sm:text-3xl font-islamic text-emerald-400 mb-2 border-b-2 border-emerald-400 pb-2 inline-block text-center w-full"><i class="fas fa-list-check text-xl sm:text-2xl mr-2"></i> Jurnal Penjaga Diri</h2>
+                <p class="text-gray-300 mb-6 text-sm sm:text-base text-center">Tandai amalan harianmu untuk menjaga diri dari pergaulan bebas dan maksiat. (Tersimpan di perangkatmu)</p>
+                
+                <div class="max-w-xl mx-auto space-y-3" id="habit-list">
+                    <!-- Habits will be rendered here by JS -->
+                </div>
+                
+                <div class="mt-8 text-center bg-emerald-900/50 p-4 rounded-xl border border-emerald-500/30">
+                    <p class="text-emerald-300 italic text-sm">"Sesungguhnya perbuatan-perbuatan yang baik itu menghapuskan (dosa) perbuatan-perbuatan yang buruk." (QS. Hud: 114)</p>
+                </div>
+            </div>
+        `
+    };
+
+    function changeTab(tabId) {
+        // Update buttons
+        document.querySelectorAll('.tab-btn').forEach(btn => {
+            btn.classList.remove('active', 'bg-gold-primary', 'text-emerald-dark', 'bg-cyan-400', 'bg-emerald-400');
+            
+            // Reset warna teks default berdasarkan ID
+            if(btn.id === 'btn-flashcard') btn.classList.add('text-cyan-400');
+            else if(btn.id === 'btn-mutabaah') btn.classList.add('text-emerald-400');
+            else btn.classList.add('text-gold-primary');
+        });
+        
+        const activeBtn = document.getElementById(`btn-${tabId}`);
+        activeBtn.classList.add('active');
+        
+        // Pewarnaan khusus untuk tab aktif
+        if(tabId === 'flashcard') {
+            activeBtn.classList.remove('text-cyan-400');
+            activeBtn.classList.add('bg-cyan-400', 'text-emerald-dark');
+        } else if (tabId === 'mutabaah') {
+            activeBtn.classList.remove('text-emerald-400');
+            activeBtn.classList.add('bg-emerald-400', 'text-emerald-dark');
+        } else {
+            activeBtn.classList.remove('text-gold-primary');
+            activeBtn.classList.add('bg-gold-primary', 'text-emerald-dark');
+        }
+
+        // Update content
+        const container = document.getElementById('content-container');
+        container.innerHTML = contentData[tabId];
+
+        // Re-render habits if mutabaah tab is opened
+        if(tabId === 'mutabaah') {
+            renderHabits();
+        }
+        if(tabId === 'flashcard') {
+            updateFlashcardUI();
+        }
+    }
+
+    // Initialize first tab
+    changeTab('perkelahian');
+
+    const quizQuestions = [
+        { question: "1. Apa pengertian dari khamr secara bahasa?", options: ["Minuman manis", "Sesuatu yang menutupi (akal)", "Sesuatu yang mahal", "Sesuatu yang haram"], answer: 1 },
+        { question: "2. Surah apa yang secara tegas melarang konsumsi Khamr?", options: ["Al-Baqarah 1-5", "Al-Maidah 90-91", "Yasin 1-3", "Al-Kahfi 10"], answer: 1 },
+        { question: "3. Apa hukum mengonsumsi Narkoba menurut para ulama melalui metode Qiyas?", options: ["Makruh", "Mubah", "Haram", "Sunnah"], answer: 2 },
+        { question: "4. Perkelahian antar pelajar yang melibatkan massa dan saling serang disebut...", options: ["Tawuran", "Diskusi", "Silat", "Olahraga"], answer: 0 },
+        { question: "5. Dalam menangani pelajar yang bermasalah, langkah memberikan bantuan dengan tulus tanpa syarat disebut...", options: ["Empati", "Kepercayaan", "Kejujuran", "Kemurnian Hati"], answer: 3 },
+        { question: "6. Salah satu dampak dari meminum khamr adalah...", options: ["Menambah kecerdasan", "Merusak hati dan akal", "Menambah teman", "Mendapat pahala"], answer: 1 },
+        { question: "7. Qiyas adalah metode menetapkan hukum berdasarkan...", options: ["Pendapat mayoritas", "Kebiasaan adat", "Persamaan sifat/sebab dengan dalil yang sudah ada", "Uji coba ilmiah"], answer: 2 },
+        { question: "8. Dalam QS. Al-Maidah 90, minuman keras, berjudi, dan mengundi nasib disebut sebagai perbuatan...", options: ["Sunnah", "Mubah", "Keji dari perbuatan setan (Rijsun)", "Biasa saja"], answer: 2 },
+        { question: "9. Salah satu cara paling efektif mencegah tawuran di sekolah adalah...", options: ["Meliburkan sekolah", "Menghukum fisik semua siswa", "Menyediakan wadah ekstrakurikuler positif", "Membiarkan siswa bebas"], answer: 2 },
+        { question: "10. Zat atau obat yang berasal dari tanaman atau bukan, baik sintetis maupun semi sintetis yang menyebabkan penurunan kesadaran disebut...", options: ["Jamu", "Suplemen", "Narkotika", "Herbal"], answer: 2 },
+        { question: "11. Salah satu alasan mengapa khamr diharamkan secara bertahap dalam sejarah Islam adalah...", options: ["Karena khamr itu sehat", "Karena sudah menjadi kebiasaan mendarah daging masyarakat Arab", "Karena harganya murah", "Karena belum ada pabriknya"], answer: 1 },
+        { question: "12. Tujuan syariat Islam mengharamkan narkoba dan khamr adalah untuk menjaga...", options: ["Hifzhul Maal (Harta)", "Hifzhul 'Aql (Akal)", "Hifzhun Nasl (Keturunan)", "Semua jawaban benar"], answer: 3 },
+        { question: "13. Narkoba jenis halusinogen (seperti Mushroom) akan membuat penggunanya...", options: ["Sangat fokus", "Melihat atau merasakan hal yang tidak nyata", "Lebih kuat mengangkat beban", "Mengantuk berat"], answer: 1 },
+        { question: "14. Langkah yang menunjukkan 'Empati' kepada pelajar bermasalah adalah...", options: ["Memarahinya di depan umum", "Memahami perasaan dan masalah dari sudut pandang pelajar tersebut", "Membiarkannya tanpa bimbingan", "Mengeluarkannya langsung dari sekolah"], answer: 1 },
+        { question: "15. 'Kullu muskirin khamrun, wa kullu muskirin haram' artinya...", options: ["Setiap yang halal itu baik", "Setiap yang memabukkan adalah khamr, dan setiap yang memabukkan adalah haram", "Minuman keras boleh jika sedikit", "Semua khamr itu pahit"], answer: 1 },
+        { question: "16. Sifat adiktif pada narkoba berarti...", options: ["Menyembuhkan penyakit", "Membuat orang menjadi kebal", "Menimbulkan kecanduan dan ketergantungan fisik/psikologis", "Meningkatkan daya ingat"], answer: 2 },
+        { question: "17. Mengapa rokok sering disebut sebagai 'pintu gerbang' menuju narkoba?", options: ["Karena harganya sama", "Karena dari rokok, remaja rentan diajak mencoba zat adiktif yang lebih keras", "Karena rokok mengandung vitamin", "Karena dilarang sekolah"], answer: 1 },
+        { question: "18. Sikap yang tepat ketika diajak teman meminum minuman keras adalah...", options: ["Ikut sedikit agar sopan", "Pura-pura minum", "Menolak dengan tegas dan menjauhi lingkungan tersebut", "Memfoto untuk diposting"], answer: 2 },
+        { question: "19. Dampak sosiologis dari tawuran antar pelajar adalah...", options: ["Masyarakat merasa bangga", "Rusaknya fasilitas umum dan keresahan di masyarakat", "Sekolah menjadi terkenal positif", "Meningkatnya nilai ekonomi daerah"], answer: 1 },
+        { question: "20. Tindakan kuratif (penyembuhan) bagi pecandu narkoba biasanya dilakukan melalui...", options: ["Hukuman mati", "Rehabilitasi medis dan sosial", "Dibiarkan di jalanan", "Dimasukkan ke sekolah biasa"], answer: 1 },
+        { question: "21. Hukuman (had) bagi peminum khamr dalam fiqih Islam (menurut mayoritas ulama) adalah...", options: ["Dicambuk (dera)", "Dipotong tangan", "Dipenjara seumur hidup", "Denda uang"], answer: 0 },
+        { question: "22. Sikap orang tua yang selalu membanding-bandingkan anak dapat memicu tawuran karena...", options: ["Anak menjadi termotivasi", "Memicu rasa iri hati, rendah diri, dan mencari pelarian di luar", "Anak jadi rajin belajar", "Meningkatkan kepatuhan"], answer: 1 },
+        { question: "23. Perjudian (Maisir) sering dikaitkan dengan Khamr dalam Al-Qur'an karena...", options: ["Keduanya menguntungkan", "Keduanya merusak tatanan sosial, menimbulkan permusuhan, dan melalaikan dari mengingat Allah", "Hanya dilakukan malam hari", "Membutuhkan banyak uang"], answer: 1 },
+        { question: "24. Apa yang dimaksud dengan 'Inhalansia' dalam kategori narkoba?", options: ["Obat yang disuntikkan", "Zat yang dihirup (seperti lem, bensin) yang merusak otak", "Pil penenang", "Daun herbal"], answer: 1 },
+        { question: "25. Salah satu penyebab internal remaja terjerumus narkoba adalah...", options: ["Kurangnya fasilitas sekolah", "Krisis identitas dan lemahnya iman", "Banyaknya razia polisi", "Lingkungan kumuh"], answer: 1 },
+        { question: "26. Ayat Al-Qur'an yang menjelaskan bahwa setan bermaksud menimbulkan permusuhan dan kebencian melalui khamr adalah...", options: ["Al-Maidah 90", "Al-Maidah 91", "Al-Baqarah 219", "An-Nisa 43"], answer: 1 },
+        { question: "27. Zat kimia pada rokok yang menyebabkan kecanduan parah adalah...", options: ["Oksigen", "Karbon monoksida", "Nikotin", "Tar"], answer: 2 },
+        { question: "28. Menggunakan pendekatan yang tulus tanpa maksud terselubung untuk membantu siswa bermasalah disebut...", options: ["Simpati", "Kemurnian hati", "Kejujuran", "Apresiasi"], answer: 1 },
+        { question: "29. Berdasarkan QS. Al-Maidah: 90, selain khamr, yang termasuk perbuatan setan adalah...", options: ["Makan daging babi", "Berzina", "Berkorban untuk berhala (Ansab) dan mengundi nasib", "Mencuri"], answer: 2 },
+        { question: "30. Dalam Islam, menjaga akal sehat merupakan salah satu pilar dari...", options: ["Rukun Islam", "Maqashid asy-Syariah (Tujuan Syariat)", "Rukun Iman", "Syarat sah shalat"], answer: 1 },
+        { question: "31. Contoh kegiatan positif pengganti waktu luang agar terhindar dari tawuran adalah...", options: ["Nongkrong hingga larut malam", "Bermain game tanpa batas waktu", "Mengikuti kajian, ekstrakurikuler, atau bela diri resmi", "Balap liar"], answer: 2 },
+        { question: "32. Faktor eksternal terbesar yang mempengaruhi remaja mengonsumsi narkoba adalah...", options: ["Genetik", "Lingkungan pergaulan (peer group) yang buruk", "Cuaca", "Makanan sehari-hari"], answer: 1 },
+        { question: "33. Menurut medis, organ tubuh yang paling cepat rusak akibat alkohol adalah...", options: ["Mata", "Hati (Liver/Hepar)", "Tulang", "Kulit"], answer: 1 },
+        { question: "34. Bagaimana sikap Islam terhadap khamr meskipun dikonsumsi dalam jumlah sangat sedikit dan tidak memabukkan?", options: ["Boleh asal sedikit", "Boleh untuk obat", "Tetap Haram", "Makruh"], answer: 2 },
+        { question: "35. Fenomena 'bullying' di sekolah seringkali berujung pada...", options: ["Prestasi meningkat", "Perkelahian dan trauma psikologis", "Keakraban", "Kerjasama tim"], answer: 1 },
+        { question: "36. Sikap 'Kejujuran' dari seorang pendidik saat membimbing siswa bermasalah bermakna...", options: ["Menyebarkan aib siswa", "Berbohong demi kebaikan", "Menyampaikan yang benar adalah benar, salah adalah salah secara objektif", "Membela siswa meski salah"], answer: 2 },
+        { question: "37. Pengedar narkoba dalam hukum negara dan Islam pantas dihukum berat karena...", options: ["Menyaingi dokter", "Merusak generasi bangsa dan menebar maut", "Membuat harga obat mahal", "Tidak membayar pajak"], answer: 1 },
+        { question: "38. Salah satu cara melatih keberanian untuk menolak narkoba adalah...", options: ["Selalu diam saja", "Latihan asertif (berani berkata tidak dengan sopan dan tegas)", "Mengikuti kemauan teman", "Marah-marah tanpa sebab"], answer: 1 },
+        { question: "39. Selain dosa besar, orang yang wafat karena overdosis narkoba atau miras bisa dikategorikan wafat dalam keadaan...", options: ["Husnul khatimah", "Suul khatimah (akhir yang buruk)", "Syahid", "Biasa saja"], answer: 1 },
+        { question: "40. Di bawah ini yang BUKAN merupakan alasan rasional menjauhi tawuran adalah...", options: ["Berisiko cacat/kematian", "Mengecewakan orang tua", "Meningkatkan status sosial", "Terancam dikeluarkan dari sekolah/penjara"], answer: 2 },
+        { question: "41. Istilah untuk pecandu yang mengalami rasa sakit luar biasa saat berhenti memakai narkoba adalah...", options: ["Sakau (Withdrawal syndrome)", "Overdosis", "Halusinasi", "Eforia"], answer: 0 },
+        { question: "42. Allah SWT melarang khamr karena dosanya...", options: ["Lebih kecil dari manfaatnya", "Sama dengan manfaatnya", "Lebih besar dari manfaatnya", "Tidak berdosa sama sekali"], answer: 2 },
+        { question: "43. Menyalurkan emosi jiwa muda sebaiknya melalui...", options: ["Adu fisik di jalanan", "Coret-coret tembok warga", "Ajang kompetisi olahraga atau seni yang sportif", "Membully adik kelas"], answer: 2 },
+        { question: "44. Salah satu ciri lingkungan keluarga yang rentan membuat anak terjerumus narkoba adalah...", options: ["Harmonis", "Banyak komunikasi", "Broken home / kurangnya kasih sayang", "Taat beragama"], answer: 2 },
+        { question: "45. Langkah pertama yang harus dilakukan jika melihat teman mulai mengonsumsi miras adalah...", options: ["Ikut minum", "Menjauhi dan menasihatinya/melaporkan ke pihak berwenang", "Meminta bagian", "Merekam untuk viral"], answer: 1 },
+        { question: "46. Kunci utama dalam pendidikan akidah untuk mencegah penyimpangan remaja adalah...", options: ["Hafalan teori", "Menanamkan kesadaran bahwa Allah SWT selalu mengawasi (Muraqabah)", "Menghukum setiap hari", "Memberi banyak PR"], answer: 1 },
+        { question: "47. Tawuran sering terjadi akibat 'solidaritas semu', maksudnya adalah...", options: ["Solidaritas dalam kebaikan", "Membela teman membabi buta tanpa melihat salah atau benarnya", "Solidaritas beramal", "Kerjasama kelompok belajar"], answer: 1 },
+        { question: "48. Di zaman Rasulullah, khamr dibuat dari perasan...", options: ["Apel", "Anggur dan Kurma", "Singkong", "Beras"], answer: 1 },
+        { question: "49. Mengapa pencegahan dinilai lebih baik daripada pengobatan dalam kasus narkoba?", options: ["Karena lebih murah dan kerusakan saraf otak seringkali permanen/sulit pulih", "Karena pengobatan itu cepat", "Karena dokter menolak", "Karena tidak ada obatnya"], answer: 0 },
+        { question: "50. Pesan moral terbesar dari Bab 3 PAI Kelas XI ini adalah...", options: ["Remaja bebas melakukan apa saja", "Masa muda harus dihabiskan untuk bersenang-senang", "Pentingnya menjaga akal, jiwa, dan pergaulan agar masa depan selamat dunia akhirat", "Hanya orang tua yang harus bertanggung jawab"], answer: 2 }
+    ];
+
+    let currentQuestion = 0;
+        let score = 0;
+
+        function startQuiz() {
+            document.getElementById('start-quiz-btn').classList.add('hidden');
+            document.getElementById('quiz-result').classList.add('hidden');
+            document.getElementById('quiz-container').classList.remove('hidden');
+            currentQuestion = 0;
+            score = 0;
+            showQuestion();
+        }
+
+        function showQuestion() {
+            if (currentQuestion >= quizQuestions.length) {
+                endQuiz();
+                return;
+            }
+
+            const q = quizQuestions[currentQuestion];
+            document.getElementById('q-current').innerText = currentQuestion + 1;
+            document.getElementById('q-total').innerText = quizQuestions.length;
+            document.getElementById('question-text').innerText = q.question;
+
+            const optionsContainer = document.getElementById('options-container');
+            optionsContainer.innerHTML = '';
+
+            q.options.forEach((opt, index) => {
+                const btn = document.createElement('button');
+                btn.className = "w-full text-left p-4 rounded-xl border border-emerald-light bg-emerald-dark/40 hover:bg-gold-primary/20 hover:border-gold-primary transition-all text-gray-200 text-sm sm:text-base shadow-sm cursor-pointer";
+                btn.innerText = opt;
+                btn.onclick = () => checkAnswer(index, btn);
+                optionsContainer.appendChild(btn);
+            });
+        }
+
+        function checkAnswer(selectedIndex, btnElement) {
+            const correctIndex = quizQuestions[currentQuestion].answer;
+            const allButtons = document.getElementById('options-container').children;
+            
+            // Disable all buttons and remove hover effects properly
+            for (let btn of allButtons) {
+                btn.onclick = null;
+                btn.classList.add('opacity-60', 'cursor-default');
+                btn.classList.remove('hover:bg-gold-primary/20', 'hover:border-gold-primary', 'cursor-pointer');
+            }
+
+            if (selectedIndex === correctIndex) {
+                score++;
+                btnElement.classList.remove('bg-emerald-dark/40', 'border-emerald-light', 'opacity-50');
+                btnElement.classList.add('bg-green-600', 'border-green-400', 'text-white', 'opacity-100');
+                btnElement.innerHTML += ' <i class="fas fa-check-circle float-right mt-1"></i>';
+            } else {
+                btnElement.classList.remove('bg-emerald-dark/40', 'border-emerald-light', 'opacity-50');
+                btnElement.classList.add('bg-red-600', 'border-red-400', 'text-white', 'opacity-100');
+                btnElement.innerHTML += ' <i class="fas fa-times-circle float-right mt-1"></i>';
+                
+                // Highlight correct answer
+                const correctBtn = allButtons[correctIndex];
+                correctBtn.classList.remove('bg-emerald-dark/40', 'border-emerald-light', 'opacity-50');
+                correctBtn.classList.add('bg-green-600', 'border-green-400', 'text-white', 'opacity-100');
+            }
+
+            setTimeout(() => {
+                currentQuestion++;
+                showQuestion();
+            }, 1500);
+        }
+
+        function endQuiz() {
+            document.getElementById('quiz-container').classList.add('hidden');
+            const resultDiv = document.getElementById('quiz-result');
+            resultDiv.classList.remove('hidden');
+            resultDiv.classList.add('animate-fade-in');
+            
+            document.getElementById('score-text').innerText = `${score} dari ${quizQuestions.length}`;
+            
+            let feedback = "";
+            if (score === quizQuestions.length) {
+                feedback = "Masya Allah, Sempurna! Kamu sangat memahami materi ini.";
+            } else if (score > 0) {
+                feedback = "Alhamdulillah, sudah lumayan bagus. Mari baca materinya lagi untuk hasil maksimal!";
+            } else {
+                feedback = "Astaghfirullah, jangan menyerah! Ayo baca kembali materinya dengan saksama.";
+            }
+            document.getElementById('feedback-text').innerText = feedback;
+        }
+
+        let dzikirCount = 0;
+        
+        function toggleDzikir() {
+            const panel = document.getElementById('dzikir-panel');
+            if (panel.classList.contains('hidden')) {
+                panel.classList.remove('hidden');
+                panel.classList.add('animate-slide-up');
+            } else {
+                // Increment counter instead of hiding if it's already open
+                dzikirCount++;
+                document.getElementById('dzikir-count').innerText = dzikirCount;
+                
+                // Add tiny pop animation to the number
+                const countEl = document.getElementById('dzikir-count');
+                countEl.classList.remove('scale-110', 'text-gold-primary');
+                // Trigger reflow
+                void countEl.offsetWidth; 
+                countEl.classList.add('scale-110', 'text-gold-primary', 'transition-all');
+                setTimeout(() => {
+                    countEl.classList.remove('scale-110', 'text-gold-primary');
+                }, 150);
+            }
+        }
+
+        function resetDzikir() {
+            dzikirCount = 0;
+            document.getElementById('dzikir-count').innerText = dzikirCount;
+            // Hide panel on reset
+            document.getElementById('dzikir-panel').classList.add('hidden');
+        }
+
+        // ==========================================
+    // LOGIKA FITUR STUDI KASUS INTERAKTIF
+    // ==========================================
+    function pilihKasus(jawaban) {
+            const container = document.getElementById('kasus-container');
+            let resultHTML = "";
+            
+            if(jawaban === 3) {
+                // Jawaban Benar
+                resultHTML = `
+                    <div class="animate-slide-up py-6">
+                        <div class="inline-block p-4 bg-green-500/20 rounded-full mb-4 relative">
+                            <i class="fas fa-check-circle text-6xl text-green-400 animate-bounce"></i>
+                        </div>
+                        <h3 class="text-2xl font-bold text-gold-primary mb-3 tracking-wide">Tepat Sekali! <i class="fas fa-star text-gold-light text-sm animate-pulse"></i></h3>
+                        <p class="text-gray-200 mb-6 max-w-md mx-auto leading-relaxed bg-emerald-dark/50 p-4 rounded-xl border border-green-500/30">
+                            Menolak dengan tegas adalah perlindungan diri terbaik. Meninggalkan tempat maksiat mencegah kita terjerumus. Kita tidak butuh teman yang memaksa kita berbuat dosa.
+                        </p>
+                        <button onclick="changeTab('kasus')" class="px-8 py-3 bg-emerald-light rounded-full hover:bg-emerald-dark border border-gold-primary transition-all text-white font-bold shadow-lg hover:shadow-gold-primary/40 transform hover:-translate-y-1">Ulangi Skenario</button>
+                    </div>
+                `;
+            } else if(jawaban === 1) {
+                // Jawaban Salah - Ikut ikutan
+                resultHTML = `
+                    <div class="animate-fade-in py-6">
+                        <i class="fas fa-times-circle text-6xl text-red-500 mb-4 drop-shadow-[0_0_10px_rgba(239,68,68,0.5)]"></i>
+                        <h3 class="text-2xl font-bold text-red-400 mb-3">Astaghfirullah, Kurang Tepat!</h3>
+                        <p class="text-gray-200 mb-6 max-w-md mx-auto leading-relaxed">
+                            Solidaritas pertemanan tidak berlaku dalam hal kemaksiatan. Satu teguk khamr tetap diharamkan dan itu adalah pintu gerbang menuju kecanduan yang merusak masa depan.
+                        </p>
+                        <button onclick="changeTab('kasus')" class="px-6 py-2 bg-emerald-light rounded-full hover:bg-emerald-dark border border-red-400 transition-colors text-white">Renungkan & Coba Lagi</button>
+                    </div>
+                `;
+            } else {
+                // Jawaban Salah - Emosi
+                resultHTML = `
+                    <div class="animate-fade-in py-6">
+                        <i class="fas fa-exclamation-triangle text-6xl text-yellow-400 mb-4 drop-shadow-[0_0_10px_rgba(250,204,21,0.5)]"></i>
+                        <h3 class="text-2xl font-bold text-yellow-400 mb-3">Emosi Bukanlah Solusi</h3>
+                        <p class="text-gray-200 mb-6 max-w-md mx-auto leading-relaxed">
+                            Islam mengajarkan kita menolak dengan <strong>hikmah</strong> (cara yang baik). Menggunakan kekerasan (memukul) justru akan memicu masalah baru, yaitu perkelahian pelajar.
+                        </p>
+                        <button onclick="changeTab('kasus')" class="px-6 py-2 bg-emerald-light rounded-full hover:bg-emerald-dark border border-yellow-400 transition-colors text-white">Renungkan & Coba Lagi</button>
+                    </div>
+                `;
+            }
+        
+        container.innerHTML = resultHTML;
+    }
+
+    
+    // --- AUDIO PLAYER LOGIC ---
+    let isAudioPlaying = false;
+    function toggleAudio() {
+        const audio = document.getElementById('murottal-audio');
+        const btn = document.getElementById('audio-btn');
+        
+        if (isAudioPlaying) {
+            audio.pause();
+            btn.innerHTML = '<i class="fas fa-music"></i>';
+            btn.classList.remove('bg-red-500', 'animate-pulse');
+            btn.classList.add('bg-cyan-600/80');
+        } else {
+            audio.play();
+            btn.innerHTML = '<i class="fas fa-pause"></i>';
+            btn.classList.remove('bg-cyan-600/80');
+            btn.classList.add('bg-red-500', 'animate-pulse');
+        }
+        isAudioPlaying = !isAudioPlaying;
+    }
+
+    // --- FLASHCARD LOGIC ---
+    const flashcardsData = [
+        { front: "Khamr", back: "Segala minuman/zat yang memabukkan dan merusak akal sehat. Hukumnya Haram Mutlak." },
+        { front: "Qiyas", back: "Metode menetapkan hukum (seperti haramnya Narkoba) dengan analogi pada Khamr karena kesamaan sebab (memabukkan)." },
+        { front: "Rijsun", back: "Kata dalam QS Al-Maidah 90 yang berarti 'kotor/keji/najis', sifat dari judi dan khamr." },
+        { front: "Tawuran", back: "Perkelahian massal antar pelajar yang merusak masa depan dan fasilitas umum. Sangat dilarang Islam." },
+        { front: "Hifzhul 'Aql", back: "Salah satu tujuan syariat Islam (Maqashid Syariah) yaitu kewajiban untuk memelihara Akal dari kerusakan." }
+    ];
+    let currentFcIndex = 0;
+
+    function updateFlashcardUI() {
+        if(!document.getElementById('fc-front')) return; // Pastikan elemen ada
+        
+        const front = document.getElementById('fc-front');
+        const back = document.getElementById('fc-back');
+        const counter = document.getElementById('fc-counter');
+        
+        // Reset rotasi jika sedang terbalik
+        document.querySelector('.flip-card').classList.remove('flipped');
+        
+        setTimeout(() => {
+            front.innerText = flashcardsData[currentFcIndex].front;
+            back.innerText = flashcardsData[currentFcIndex].back;
+            counter.innerText = `${currentFcIndex + 1} / ${flashcardsData.length}`;
+        }, 150); // delay sejenak untuk transisi mulus
+    }
+
+    function nextFlashcard() {
+        currentFcIndex = (currentFcIndex + 1) % flashcardsData.length;
+        updateFlashcardUI();
+    }
+
+    function prevFlashcard() {
+        currentFcIndex = (currentFcIndex - 1 + flashcardsData.length) % flashcardsData.length;
+        updateFlashcardUI();
+    }
+
+    // --- MUTABA'AH (JURNAL) LOGIC ---
+    const dailyHabits = [
+        { id: 'h1', text: "Shalat Wajib 5 Waktu Tepat Waktu" },
+        { id: 'h2', text: "Membaca Al-Qur'an / Tilawah Hari Ini" },
+        { id: 'h3', text: "Berbakti/Membantu Orang Tua" },
+        { id: 'h4', text: "Menghindari Kata-kata Kasar & Toxic" },
+        { id: 'h5', text: "Menolak Ajakan Nongkrong Tidak Bermanfaat" },
+        { id: 'h6', text: "Membaca Dzikir Pagi/Petang" }
+    ];
+
+    function renderHabits() {
+        const container = document.getElementById('habit-list');
+        if(!container) return;
+        
+        container.innerHTML = '';
+        
+        // Ambil data tersimpan di LocalStorage
+        let savedHabits = JSON.parse(localStorage.getItem('pai_habits')) || {};
+
+        dailyHabits.forEach(habit => {
+            const isChecked = savedHabits[habit.id] ? 'checked' : '';
+            
+            const html = `
+                <label class="flex items-center p-4 bg-emerald-dark/40 border border-emerald-light rounded-xl cursor-pointer hover:bg-emerald-dark/60 transition-colors relative overflow-hidden group">
+                    <input type="checkbox" class="habit-checkbox absolute opacity-0 w-0 h-0" id="${habit.id}" ${isChecked} onchange="saveHabit('${habit.id}')">
+                    <div class="w-6 h-6 border-2 border-emerald-light rounded flex items-center justify-center mr-4 bg-emerald-dark/80 transition-colors">
+                        <i class="fas fa-check text-emerald-dark text-sm check-icon opacity-0 transition-transform transform scale-0"></i>
+                    </div>
+                    <span class="text-gray-200 group-hover:text-white transition-colors">${habit.text}</span>
+                </label>
+            `;
+            container.innerHTML += html;
+        });
+    }
+
+    function saveHabit(id) {
+        let savedHabits = JSON.parse(localStorage.getItem('pai_habits')) || {};
+        const checkbox = document.getElementById(id);
+        
+        savedHabits[id] = checkbox.checked;
+        localStorage.setItem('pai_habits', JSON.stringify(savedHabits));
+        
+        // Animasi kecil saat dicentang
+        if(checkbox.checked) {
+            const label = checkbox.parentElement;
+            label.classList.add('scale-[1.02]');
+            setTimeout(() => label.classList.remove('scale-[1.02]'), 200);
+        }
+    }
+
+</script>
+</body>
+</html>
